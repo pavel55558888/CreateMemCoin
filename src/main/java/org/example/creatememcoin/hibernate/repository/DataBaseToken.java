@@ -19,4 +19,7 @@ public interface DataBaseToken {
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public List<TokenServiceModel> getNameToken(String nameToken);
 
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public List<TokenServiceModel> getUsernameToken(String username);
+
 }

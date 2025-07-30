@@ -2,11 +2,8 @@ package org.example.creatememcoin.controller;
 
 import jakarta.validation.Valid;
 import org.example.creatememcoin.dto.CreateTokenDto;
+import org.example.creatememcoin.hibernate.service.*;
 import org.example.creatememcoin.jdbc.service.CreateTableTokenService;
-import org.example.creatememcoin.hibernate.service.CheckingForAToken;
-import org.example.creatememcoin.hibernate.service.CreateNewToken;
-import org.example.creatememcoin.hibernate.service.GetAllToken;
-import org.example.creatememcoin.hibernate.service.GetNameToken;
 import org.example.creatememcoin.model.TokenServiceModel;
 import org.example.creatememcoin.service.TokenService;
 import org.slf4j.Logger;
@@ -24,7 +21,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class CreateTokenController {
     @Autowired
     private CreateNewToken createNewToken;
@@ -51,8 +48,6 @@ public class CreateTokenController {
                     .collect(Collectors.toList());
             return ResponseEntity.badRequest().body(Map.of("errors", errors));
         }
-        //createNewToken.createNewToken(createTokenDto);
-        //createTableTokenService.createTable(createTokenDto.getNameToken());
         TokenService tokenService = new TokenService(createTableTokenService, createTokenDto, createNewToken);
         boolean info = tokenService.startThreadAll();
         logger.info("Работа потоков по созданию нового токена. Статус: " + info);

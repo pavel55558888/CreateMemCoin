@@ -32,4 +32,9 @@ public class DataBaseTokenImpl implements DataBaseToken {
     public List<TokenServiceModel> getNameToken(String nameToken) {
         return entityManager.createQuery("from TokenServiceModel where nameToken = :param1").setParameter("param1", nameToken).getResultList();
     }
+
+    @Override
+    public List<TokenServiceModel> getUsernameToken(String username) {
+        return entityManager.createQuery("from TokenServiceModel where username = :param1").setParameter("param1", username).getResultList();
+    }
 }
